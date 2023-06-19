@@ -1,5 +1,10 @@
 import configureStore from "./store/configureStore";
-import { ADD_BUG, REMOVE_BUG, RESOLVE_BUG } from "./store/bugs";
+import {
+  ADD_BUG,
+  REMOVE_BUG,
+  RESOLVE_BUG,
+  selectUnresolvedBugs,
+} from "./store/bugs";
 
 const store = configureStore();
 store.subscribe(() => {
@@ -11,3 +16,7 @@ store.dispatch(ADD_BUG({ description: "BUG 2" }));
 store.dispatch(ADD_BUG({ description: "BUG 3" }));
 store.dispatch(RESOLVE_BUG({ id: 1 }));
 store.dispatch(REMOVE_BUG({ id: 1 }));
+
+const unresolvedBugs = selectUnresolvedBugs(store.getState());
+
+console.log(unresolvedBugs);
