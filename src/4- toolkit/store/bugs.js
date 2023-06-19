@@ -1,5 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
-
+import { createSlice, createSelector } from "@reduxjs/toolkit";
 let id = 0;
 
 // createSlice creates action types & action creators
@@ -27,6 +26,12 @@ export const { ADD_BUG, REMOVE_BUG, RESOLVE_BUG } = slice.actions;
 export default slice.reducer;
 
 // selectors ( or getters)
-
+/* uncached (old) : 
 export const selectUnresolvedBugs = (state) =>
   state.bugs.filter((bug) => !bug.resolved);
+*/
+
+const selectBugs = (state) => state.bugs;
+export const selectUnresolvedBugs = createSelector(selectBugs, (bugs) =>
+  bugs.filter((bug) => !bug.resolved)
+);
